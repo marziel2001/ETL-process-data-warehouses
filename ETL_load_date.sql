@@ -28,3 +28,4 @@ While @DateInProcess <= @EndDate
 go
 
 Select * from [dbo].[Date]
+--delete from [dbo].[Date] where ID >=14
