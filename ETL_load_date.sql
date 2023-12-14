@@ -17,7 +17,8 @@ While @DateInProcess <= @EndDate
 		, [Holiday]
 		)
 		Values (
-			CAST(Day(@DateInProcess) as int)
+			@DateInProcess
+			, CAST(Day(@DateInProcess) as int)
 			, CAST(Month(@DateInProcess) as int)
 			, CAST(Year(@DateInProcess) as int)
 			, CASE WHEN MONTH(@DateInProcess) IN (7, 8) THEN 'holiday' ELSE 'non-holiday' END
@@ -29,3 +30,4 @@ go
 
 Select * from [dbo].[Date]
 --delete from [dbo].[Date] where ID >=14
+use master
