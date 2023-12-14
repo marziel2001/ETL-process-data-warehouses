@@ -4,14 +4,17 @@ go
 Declare @StartDate date;
 Declare @EndDate date;
 
-SELECT @StartDate = '2023-01-01', @EndDate = '2023-12-31';
+SELECT @StartDate = '1980-01-01', @EndDate = '2021-12-31';
 
 Declare @DateInProcess datetime = @StartDate;
+--delete from [dbo].[Date]
 
 While @DateInProcess <= @EndDate
 	Begin
 		Insert into [dbo].[Date]
-		( [Day]
+		(
+		[Date]
+		,[Day]
 		, [Month]
 		, [Year]
 		, [Holiday]
@@ -29,5 +32,4 @@ While @DateInProcess <= @EndDate
 go
 
 Select * from [dbo].[Date]
---delete from [dbo].[Date] where ID >=14
 use master

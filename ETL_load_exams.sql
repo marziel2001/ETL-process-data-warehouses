@@ -61,3 +61,4 @@ go
 
 select * from vTheory order by student_id;
 
+use master

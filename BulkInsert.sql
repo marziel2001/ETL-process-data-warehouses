@@ -69,14 +69,14 @@ FROM 'C:\Users\Marcel\Documents\SQL Server Management Studio\HD_ETL\CSV\t1\Drivi
 WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', DATAFILETYPE='widechar', CHECK_CONSTRAINTS);
 Select * from DrivingLesson;
 
-CREATE DATABASE szkolaJazdySnapshotT1 ON
-(
-	NAME = szkolaJazdyBD,
-	FILENAME = 'C:\snapshotyHurtownie\DL_snapshot_t1.ss'
-)
-AS 
-SNAPSHOT OF szkolaJazdyBD
-GO
+--CREATE DATABASE szkolaJazdySnapshotT1 ON
+--(
+--	NAME = szkolaJazdyBD,
+--	FILENAME = 'C:\snapshotyHurtownie\DL_snapshot_t1.ss'
+--)
+--AS 
+--SNAPSHOT OF szkolaJazdyBD
+--GO
 
 --UPDATE Student
 --SET LastName = 'Kowalski'

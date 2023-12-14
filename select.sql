@@ -9,3 +9,4 @@ Select * from Lecture;
 select * from LectureAttendanceList;
 Select * from Car;
 Select * from DrivingLesson;
+use master
