@@ -6,9 +6,10 @@ GO
 
 CREATE VIEW vCourse
 AS SELECT
-	Edition =  Course.ID,
-	ID_StartDate = CONVERT(VARCHAR(10), Course.StartDate, 111)
-FROM szkolaJazdyBD.dbo.Course AS Course
+	Edition =  C.ID,
+	ID_StartDate = D.ID
+FROM szkolaJazdyBD.dbo.Course AS C
+INNER JOIN szkolaJazdyHD.dbo.Date AS D ON D.Date = CONVERT(VARCHAR(10), C.StartDate, 111)
 
 GO
 
