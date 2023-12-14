@@ -13,13 +13,28 @@ INNER JOIN szkolaJazdyHD.dbo.Date AS D ON D.Date = CONVERT(VARCHAR(10), C.StartD
 
 GO
 
-SELECT * FROM vCourse
-
+SELECT * FROM vCourse;
 GO
 
-DROP VIEW vCourse
+merge into szkolaJazdyHD.Course as tt
+	using vCourse as st
+		ON tt.edition = st.edition
+		and tt.ID_StartDate = st.ID_StartDate
+			when not matched then insert
+				values (
+				ST.edition,
+				ST.ID_StartDate
+				)
+				;
 
-USE master
+
+
+
+
+
+DROP VIEW vCourse;
+
+USE master;
 
 /*
 
