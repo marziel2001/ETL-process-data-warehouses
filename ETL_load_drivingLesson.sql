@@ -14,6 +14,8 @@ Select
 				then 0
 				else dl.FK_Bill
 			end,
+	d.ID as Date_,
+	duration = datepart(HOUR, dl.EndTime - dl.StartTime),
 	Bill_Issue_Date = 
 		case
 			when id.ID is null
@@ -26,8 +28,6 @@ Select
 				then 0
 				else pd.ID
 			end,
-	d.ID as Date_,
-	duration = datepart(HOUR, dl.EndTime - dl.StartTime),
 	c.ExtraHourPrice as one_hour_pice,
 	total_cost = datepart(HOUR, dl.EndTime - dl.StartTime) * c.ExtraHourPrice
 
