@@ -9,7 +9,7 @@ AS SELECT
 	ID_StudentCourse = LAT.FK_StudentCourse,
 	ID_Date = D.ID,
 	ID_Lecture = L.ID,
-	Present
+	Present = CAST(LAT.Present AS float)
 FROM szkolaJazdyBD.dbo.LectureAttendanceList AS LAT
 INNER JOIN szkolaJazdyBD.dbo.StudentCourse AS SC ON SC.StudentCourse = LAT.FK_StudentCourse
 INNER JOIN szkolaJazdyBD.dbo.Lecture AS L ON L.ID = LAT.FK_Lecture
