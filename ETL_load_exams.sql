@@ -32,10 +32,12 @@ Select
 	stc.FK_Student,
 	[PracticeAttempt],
 	[PracticeResult],
-	[PracticeDate]
+	[PracticeDate],
+	d.ID
 
 from szkolaJazdyHD.dbo.examTemp inner join szkolaJazdyBD.dbo.Student as st on 
 examTemp.PESEL = st.PESEL inner join szkolaJazdyBD.dbo.StudentCourse as stc on stc.FK_Student = st.ID 
+inner join szkolaJazdyHD.dbo.Date as d on CONVERT(varchar(10), d.date, 111) = CONVERT(varchar(10), examTemp.practiceDate, 111)
 go
 
 select * from vPractice;
@@ -49,10 +51,12 @@ Select distinct
 	[TheoryAttempt],
 	[TheoryResult],
 	[TheoryScore],
-	[TheoryDate]
+	[TheoryDate],
+	d.ID
 
 from szkolaJazdyHD.dbo.examTemp inner join szkolaJazdyBD.dbo.Student as st on 
 examTemp.PESEL = st.PESEL inner join szkolaJazdyBD.dbo.StudentCourse as stc on stc.FK_Student = st.ID 
+inner join szkolaJazdyHD.dbo.Date as d on CONVERT(varchar(10), d.date, 111) = CONVERT(varchar(10), examTemp.theoryDate, 111)
 go
 
 select * from vTheory order by student_id;
