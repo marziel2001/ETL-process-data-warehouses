@@ -29,17 +29,18 @@ go
 create view vPractice
 as 
 Select 
-	stc.FK_Student,
+	stc.StudentCourse,
 	[PracticeAttempt],
 	[PracticeResult],
-	[PracticeDate],
-	d.ID
+	--[PracticeDate],
+	d.ID as DateID
 
 from szkolaJazdyHD.dbo.examTemp inner join szkolaJazdyBD.dbo.Student as st on 
 examTemp.PESEL = st.PESEL inner join szkolaJazdyBD.dbo.StudentCourse as stc on stc.FK_Student = st.ID 
 inner join szkolaJazdyHD.dbo.Date as d on CONVERT(varchar(10), d.date, 111) = CONVERT(varchar(10), examTemp.practiceDate, 111)
 go
 
+--select * from szkolaJazdyHD.dbo.Date
 select * from vPractice;
 
 if (object_id('vTheory') is not null) Drop view vTheory;
@@ -47,18 +48,18 @@ go
 create view vTheory
 as 
 Select distinct
-	stc.FK_Student as student_id, --TODO: change to studenCourse
+	stc.StudentCourse as stcourse,--TODO: change to studenCourse
 	[TheoryAttempt],
 	[TheoryResult],
 	[TheoryScore],
-	[TheoryDate],
-	d.ID
+	--[TheoryDate],
+	d.ID as DateID
 
 from szkolaJazdyHD.dbo.examTemp inner join szkolaJazdyBD.dbo.Student as st on 
 examTemp.PESEL = st.PESEL inner join szkolaJazdyBD.dbo.StudentCourse as stc on stc.FK_Student = st.ID 
 inner join szkolaJazdyHD.dbo.Date as d on CONVERT(varchar(10), d.date, 111) = CONVERT(varchar(10), examTemp.theoryDate, 111)
 go
 
-select * from vTheory order by student_id;
+select * from vTheory order by stcourse;
 
 use master
