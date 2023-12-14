@@ -11,7 +11,7 @@ AS SELECT
 	Model,
 	Age = 0,
 	Actual = 1
-FROM szkolaJazdyBD.dbo.Car AS Car
+FROM szkolaJazdyBD.dbo.Car
 
 GO
 
