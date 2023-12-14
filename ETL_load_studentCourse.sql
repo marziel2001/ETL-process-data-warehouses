@@ -23,12 +23,12 @@ as
 Select
 	sc.FK_Student,
 	sc.FK_Course,
-	convert(varchar(10), b.issueTime, 111) as issue_date,
-	convert(varchar(10), b.PaymentTime, 111) as payment_date,
-	carID = 0, -- add car ID
+	id.ID as Issue_date,
+	pd.ID as payment_date,
+	carID = 0,					-- add car ID
 	sc.FK_Bill,
 	c.BasePrice,
-	noExtraDrivingHours = m.NoExtraDrivingHours, -- do extra driving hours count
+	noExtraDrivingHours = m.NoExtraDrivingHours,
 	max(ex.TheoryScore) as TheoryScore
 
 
@@ -37,7 +37,11 @@ inner join szkolaJazdyBD.dbo.Bill as b on sc.FK_Bill = b.ID
 inner join szkolaJazdyBD.dbo.Course as c on sc.FK_Course = c.ID
 inner join szkolaJazdyHD.dbo.vTheory as ex on ex.stcourse = sc.StudentCourse
 inner join drivingHoursMeasures as m on m.FK_StudentCourse = sc.StudentCourse
-group by sc.FK_Student, sc.FK_Course, convert(varchar(10), b.issueTime, 111), convert(varchar(10), b.PaymentTime, 111), sc.FK_Bill, c.BasePrice, m.NoExtraDrivingHours
+inner join szkolaJazdyHD.dbo.Date as id on CONVERT(varchar(10), id.date, 111) 
+										= convert(varchar(10), b.issueTime, 111)
+inner join szkolaJazdyHD.dbo.Date as pd on CONVERT(varchar(10), pd.date, 111) 
+										= convert(varchar(10), b.PaymentTime, 111)
+group by sc.FK_Student, sc.FK_Course, id.ID, pd.ID, sc.FK_Bill, c.BasePrice, m.NoExtraDrivingHours
 go
 
 select * from vStudentCourse;
