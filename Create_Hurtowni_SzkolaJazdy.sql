@@ -117,6 +117,8 @@ CREATE TABLE PracticeAttempt (
     FOREIGN KEY (ID_Date) REFERENCES Date(ID)
 );
 
+use szkolaJazdyHD
+go
 
 SELECT * FROM Date;
 SELECT * FROM Course;
