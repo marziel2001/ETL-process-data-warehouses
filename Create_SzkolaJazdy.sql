@@ -1,7 +1,11 @@
 USE master;
-DROP DATABASE szkolaJazdy;
-CREATE DATABASE szkolaJazdy;
-USE szkolaJazdy;
+go
+DROP DATABASE szkolaJazdyBD;
+go
+CREATE DATABASE szkolaJazdyBD;
+go
+USE szkolaJazdyBD;
+go
 
 CREATE TABLE Address
 (
