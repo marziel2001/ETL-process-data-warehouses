@@ -16,28 +16,30 @@ INNER JOIN szkolaJazdyBD.dbo.Lecture AS L ON L.ID = LAT.FK_Lecture
 INNER JOIN szkolaJazdyHD.dbo.Date AS D ON D.Date = CONVERT(VARCHAR(10), L.StartTime, 111)
 
 GO
-
-SELECT * FROM vLectureAttendance
-
 GO
 
+
+merge into szkolaJazdyHD.dbo.LectureAttendance as tt
+	using vLectureAttendance as st
+		ON st.ID_StudentCourse = tt.ID_StudentCourse
+		and st.ID_Date = tt.ID_Date
+		and st.ID_Lecture = tt.ID_Lecture
+		and st.Present = tt.Present
+		when not matched then insert
+			values (
+				st.ID_StudentCourse,
+				st.ID_Date,
+				st.ID_Lecture,
+				st.Present
+			);
+
 DROP VIEW vLectureAttendance
+
+select * from szkolaJazdyHD.dbo.LectureAttendance
 
 USE master
 
 /*
-
-Database:
-
-CREATE TABLE LectureAttendanceList
-(
-    FK_StudentCourse INT,
-    FK_Lecture INT,
-    Present INT,
-    PRIMARY KEY (FK_StudentCourse, FK_Lecture),
-    FOREIGN KEY (FK_StudentCourse) REFERENCES StudentCourse (StudentCourse),
-    FOREIGN KEY (FK_Lecture) REFERENCES Lecture (ID)
-);
 
 Date warehouse:
 
