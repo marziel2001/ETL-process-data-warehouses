@@ -28,7 +28,7 @@ Select
 				then 0
 				else pd.ID
 			end,
-	c.ExtraHourPrice as one_hour_pice,
+	c.ExtraHourPrice as one_hour_price,
 	total_cost = datepart(HOUR, dl.EndTime - dl.StartTime) * c.ExtraHourPrice
 
 from szkolaJazdyBD.dbo.DrivingLesson as dl
@@ -45,7 +45,54 @@ inner join szkolaJazdyHD.dbo.Date as d on CONVERT(varchar(10), d.date, 111)
 
 go
 
-select * from vDrivingLessonTmp
-select count(*) as d from vDrivingLessonTmp
+--select * from vDrivingLessonTmp
+
+merge into szkolaJazdyHD.dbo.DrivingLesson as tt
+	using vDrivingLessonTmp as st
+		ON st.FK_Instructor = tt.ID_Instructor
+		and st.FK_StudentCourse = tt.ID_StudentCourse
+		and st.Bill_id = tt.Bill
+		and st.Date_ = tt.ID_Date
+		and st.duration = tt.Duration
+		and st.Bill_Issue_Date = tt.ID_BillIssueDate
+		and st.Bill_Payment_Date = tt.ID_BillPaymentDate
+		and st.one_hour_price = tt.One_hour_price 
+		and st.total_cost = tt.Total_cost
+			when not matched then insert
+				values (
+					st.FK_Instructor,
+					st.FK_StudentCourse,
+					st.Bill_id,
+					st.Date_,
+					st.duration,
+					st.Bill_Issue_Date,
+					st.Bill_Payment_Date,
+					st.one_hour_price,
+					st.total_cost
+				);
+
+drop view vDrivingLessonTmp
+
+select * from szkolaJazdyHD.dbo.DrivingLesson
+
 
 use master
+
+
+--CREATE TABLE DrivingLesson (
+--	ID INT IDENTITY(1,1) PRIMARY KEY,
+--    ID_Instructor INT NOT NULL,
+--    ID_StudentCourse INT NOT NULL,
+--    Bill VARCHAR(15) NOT NULL,
+--    ID_Date INT NOT NULL,
+--    Duration INT NOT NULL,
+--    ID_BillIssueDate INT NOT NULL,
+--    ID_BillPaymentDate INT NOT NULL,
+--    One_hour_price MONEY NOT NULL,
+--    Total_cost MONEY NOT NULL,
+--    FOREIGN KEY (ID_Instructor) REFERENCES Employee(ID),
+--    FOREIGN KEY (ID_StudentCourse) REFERENCES StudentCourse(ID),
+--    FOREIGN KEY (ID_Date) REFERENCES Date(ID),
+--    FOREIGN KEY (ID_BillIssueDate) REFERENCES Date(ID),
+--    FOREIGN KEY (ID_BillPaymentDate) REFERENCES Date(ID)
+--);

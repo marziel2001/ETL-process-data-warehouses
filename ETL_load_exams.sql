@@ -9,7 +9,7 @@ create table dbo.examTemp(
 	lastName nVARCHAR(50),
 	theoryAttempt int,
 	theoryDate datetime,
-	theoryResult nvarchar(4) check (theoryResult in ('PASS','FAIL')),
+	theoryResult varchar(4), -- change grtr to generate floats
 	theoryScore int,
 	practiceAttempt int,
 	practiceDate datetime,
@@ -29,10 +29,9 @@ go
 create view vPractice
 as 
 Select 
-	stc.StudentCourse,
+	stc.StudentCourse as stcourse,
 	[PracticeAttempt],
 	[PracticeResult],
-	--[PracticeDate],
 	d.ID as DateID
 
 from szkolaJazdyHD.dbo.examTemp inner join szkolaJazdyBD.dbo.Student as st on 
@@ -40,19 +39,19 @@ examTemp.PESEL = st.PESEL inner join szkolaJazdyBD.dbo.StudentCourse as stc on s
 inner join szkolaJazdyHD.dbo.Date as d on CONVERT(varchar(10), d.date, 111) = CONVERT(varchar(10), examTemp.practiceDate, 111)
 go
 
---select * from szkolaJazdyHD.dbo.Date
-select * from vPractice;
-
 if (object_id('vTheory') is not null) Drop view vTheory;
 go
 create view vTheory
 as 
 Select distinct
-	stc.StudentCourse as stcourse,--TODO: change to studenCourse
+	stc.StudentCourse as stcourse,
 	[TheoryAttempt],
-	[TheoryResult],
+	theoryResult = case
+		when theoryResult = 'PASS' 
+			then cast(1.0 as float)
+			else 0.0
+		end,
 	[TheoryScore],
-	--[TheoryDate],
 	d.ID as DateID
 
 from szkolaJazdyHD.dbo.examTemp inner join szkolaJazdyBD.dbo.Student as st on 
@@ -60,6 +59,53 @@ examTemp.PESEL = st.PESEL inner join szkolaJazdyBD.dbo.StudentCourse as stc on s
 inner join szkolaJazdyHD.dbo.Date as d on CONVERT(varchar(10), d.date, 111) = CONVERT(varchar(10), examTemp.theoryDate, 111)
 go
 
-select * from vTheory order by stcourse;
+merge into szkolaJazdyHD.dbo.TheoryAttempt as tt
+	using vTheory as st
+		ON st.stcourse = tt.ID_StudentCourse
+		and st.TheoryAttempt = tt.AttemptNumber
+		and st.TheoryResult = tt.Result
+		and st.TheoryScore = tt.Score
+		and st.DateID = tt.ID_Date
+		
+		when not matched then insert
+			values (
+				st.stcourse,
+				st.TheoryAttempt,
+				st.TheoryResult,
+				st.TheoryScore,
+				st.DateID
+			);
 
+merge into szkolaJazdyHD.dbo.PracticeAttempt as tt
+	using vPractice as st
+		ON st.stcourse = tt.ID_StudentCourse
+		and st.PracticeAttempt = tt.AttemptNumber
+		and st.PracticeResult = tt.Result
+		and st.DateID = tt.ID_Date
+		
+		when not matched then insert
+			values (
+				st.stcourse,
+				st.PracticeAttempt,
+				st.PracticeResult,
+				st.DateID
+			);
+
+
+select * from szkolaJazdyHD.dbo.TheoryAttempt
+select * from szkolaJazdyHD.dbo.PracticeAttempt
+
+drop view vTheory
+drop view vPractice
 use master
+
+
+
+--CREATE TABLE PracticeAttempt (
+--    ID_StudentCourse INT NOT NULL,
+--    AttemptNumber INT NOT NULL,
+--    Result FLOAT NOT NULL,
+--    ID_Date INT NOT NULL,
+--    FOREIGN KEY (ID_StudentCourse) REFERENCES StudentCourse(ID),
+--    FOREIGN KEY (ID_Date) REFERENCES Date(ID)
+--);

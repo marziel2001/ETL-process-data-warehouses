@@ -19,7 +19,25 @@ SELECT * FROM vCar
 
 GO
 
+
+merge into szkolaJazdyHD.dbo.Car as tt
+	using vCar as st
+		ON st.VIN = tt.VIN
+		and st.Brand = tt.Brand
+		and st.Model = tt.Model
+			when not matched then insert
+				values (
+				st.VIN,
+				st.Brand,
+				st.Model,
+				st.Age,
+				st.Actual
+				);
+
+
 DROP VIEW vCar
+
+select * from szkolaJazdyHD.dbo.Car
 
 USE master
 

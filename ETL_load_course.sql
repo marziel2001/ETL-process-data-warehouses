@@ -6,7 +6,7 @@ GO
 
 CREATE VIEW vCourse
 AS SELECT
-	Edition =  C.ID,
+	Edition =  C.ID + 1, -- change it to edition after new bulk
 	ID_StartDate = D.ID
 FROM szkolaJazdyBD.dbo.Course AS C
 INNER JOIN szkolaJazdyHD.dbo.Date AS D ON D.Date = CONVERT(VARCHAR(10), C.StartDate, 111)
@@ -16,7 +16,7 @@ GO
 SELECT * FROM vCourse;
 GO
 
-merge into szkolaJazdyHD.Course as tt
+merge into szkolaJazdyHD.dbo.Course as tt
 	using vCourse as st
 		ON tt.edition = st.edition
 		and tt.ID_StartDate = st.ID_StartDate
@@ -33,6 +33,8 @@ merge into szkolaJazdyHD.Course as tt
 
 
 DROP VIEW vCourse;
+
+select * from szkolaJazdyHD.dbo.Course
 
 USE master;
 

@@ -1,9 +1,9 @@
 use szkolaJazdyHD
 go
 
-if (object_id('vEmployees') is not null) Drop view vEmployees;
+if (object_id('vEmployee') is not null) Drop view vEmployee;
 go
-create view vEmployees
+create view vEmployee
 as 
 Select
 	[PESEL],
@@ -12,8 +12,25 @@ from szkolaJazdyBD.dbo.Employee
 go
 
 
-select * from vEmployees;
+select * from vEmployee;
 
-drop view vEmployees;
+merge into szkolaJazdyHD.dbo.Employee as tt
+	using vEmployee as st
+		ON st.PESEL = tt.PESEL
+		and st.FirstName_LastName = tt.FirstName_LastName
+			when not matched then insert
+				values (
+				st.PESEL,
+				st.FirstName_LastName
+				);
+
+drop view vEmployee;
+select * from Employee
 
 use master
+
+--CREATE TABLE Employee (
+--    ID INT PRIMARY KEY IDENTITY(1,1),
+--    PESEL VARCHAR(11) UNIQUE,
+--    FirstName_LastName VARCHAR(100)
+--);
