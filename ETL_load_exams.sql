@@ -31,7 +31,11 @@ as
 Select 
 	stc.StudentCourse as stcourse,
 	[PracticeAttempt],
-	[PracticeResult],
+	[PracticeResult] = case
+		when theoryResult = 'PASS' 
+			then cast(1.0 as float)
+			else cast(0.0 as float)
+		end,
 	d.ID as DateID
 
 from szkolaJazdyHD.dbo.examTemp inner join szkolaJazdyBD.dbo.Student as st on 
@@ -49,7 +53,7 @@ Select distinct
 	theoryResult = case
 		when theoryResult = 'PASS' 
 			then cast(1.0 as float)
-			else 0.0
+			else cast(0.0 as float)
 		end,
 	[TheoryScore],
 	d.ID as DateID
@@ -95,8 +99,6 @@ merge into szkolaJazdyHD.dbo.PracticeAttempt as tt
 select * from szkolaJazdyHD.dbo.TheoryAttempt
 select * from szkolaJazdyHD.dbo.PracticeAttempt
 
-drop view vTheory
-drop view vPractice
 use master
 
 
