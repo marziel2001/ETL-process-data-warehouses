@@ -26,7 +26,7 @@ Select
 	sc.FK_Bill,
 	c.BasePrice,
 	noExtraDrivingHours = m.NoExtraDrivingHours,
-	max(ex.TheoryScore) as TheoryScore
+	max(ex.TheoryScore) as theoryScore
 
 
 from szkolaJazdyBD.dbo.StudentCourse as sc
@@ -41,6 +41,9 @@ inner join szkolaJazdyHD.dbo.Date as pd on CONVERT(varchar(10), pd.date, 111)
 group by sc.FK_Student, sc.FK_Course, id.ID, pd.ID, sc.FK_Bill, c.BasePrice, m.NoExtraDrivingHours
 go
 
+select stc.*, st.ID from 
+szkolaJazdyBD.dbo.StudentCourse as stc full join szkolaJazdyBD.dbo.Student as st on stc.FK_Student = st.ID 
+
 merge into szkolaJazdyHD.dbo.StudentCourse as tt
 	using vStudentCourse as st
 		ON st.FK_Student = tt.ID_Student
@@ -51,6 +54,7 @@ merge into szkolaJazdyHD.dbo.StudentCourse as tt
 		and st.FK_Bill = tt.Bill
 		and st.BasePrice = tt.CoursePrice
 		and st.noExtraDrivingHours = No_extra_driving_hours
+		and st.theoryScore = tt.theory_score
 		when not matched then insert
 			values (
 				st.FK_Student,
@@ -60,10 +64,11 @@ merge into szkolaJazdyHD.dbo.StudentCourse as tt
 				st.carID,
 				st.FK_Bill,
 				st.BasePrice,
-				st.noExtraDrivingHours
+				st.noExtraDrivingHours,
+				st.theoryScore
 			);
 
-drop view vStudenCourse
+drop view vStudentCourse
 drop view drivingHoursMeasures
 use master
 

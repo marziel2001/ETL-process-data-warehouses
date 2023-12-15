@@ -1,0 +1,11 @@
+Date 
+
+Course
+Car
+Student
+Employee
+StudentCourse
+DrivingLesson
+LectureAttendance
+TheoryAttempt
+PracticeAttempt

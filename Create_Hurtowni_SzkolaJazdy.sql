@@ -8,7 +8,7 @@ USE szkolaJazdyHD;
 go
 
 CREATE TABLE Date (
-    ID INT PRIMARY KEY IDENTITY(1,1),
+    ID INT PRIMARY KEY IDENTITY(0,1),
 	Date date,
     Day INT,
     Month INT,
@@ -17,14 +17,14 @@ CREATE TABLE Date (
 );
 
 CREATE TABLE Course (
-    ID INT PRIMARY KEY IDENTITY(1,1),
+    ID INT PRIMARY KEY IDENTITY(0,1),
     Edition INT,
     ID_StartDate INT,
     FOREIGN KEY (ID_StartDate) REFERENCES Date(ID)
 );
 
 CREATE TABLE Car (
-    ID INT PRIMARY KEY IDENTITY(1,1),
+    ID INT PRIMARY KEY IDENTITY(0,1),
     VIN VARCHAR(17),
     Brand VARCHAR(50),
     Model VARCHAR(50),
@@ -33,7 +33,7 @@ CREATE TABLE Car (
 );
 
 CREATE TABLE Student (
-    ID INT PRIMARY KEY IDENTITY(1,1),
+    ID INT PRIMARY KEY IDENTITY(0,1),
     PESEL VARCHAR(11),
     FirstName_LastName VARCHAR(100),
     Age INT,
@@ -41,7 +41,7 @@ CREATE TABLE Student (
 );
 
 CREATE TABLE Employee (
-    ID INT PRIMARY KEY IDENTITY(1,1),
+    ID INT PRIMARY KEY IDENTITY(0,1),
     PESEL VARCHAR(11) UNIQUE,
     FirstName_LastName VARCHAR(100)
 );
@@ -50,7 +50,7 @@ CREATE TABLE Employee (
 
 CREATE TABLE StudentCourse
 (
-    ID INT PRIMARY KEY IDENTITY(1,1),
+    ID INT PRIMARY KEY IDENTITY(0,1),
     ID_Student INT NOT NULL,
     ID_Course INT NOT NULL,
     ID_BillIssueDate INT NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE StudentCourse
 );
 
 CREATE TABLE DrivingLesson (
-	ID INT IDENTITY(1,1) PRIMARY KEY,
+	ID INT IDENTITY(0,1) PRIMARY KEY,
     ID_Instructor INT NOT NULL,
     ID_StudentCourse INT NOT NULL,
     Bill VARCHAR(15) NOT NULL,

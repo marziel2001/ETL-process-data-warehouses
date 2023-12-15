@@ -1,0 +1,3 @@
+- Czy mamy zrobic osobne biznesowe klucze do tworzenia zwiazkow, bo zwiazki bo autoincrement ID sie psują i rozjezdzaja
+- co z car age i kiedy je liczyc i czy wtedy tworzyc wiecej samochodow co roku ten sam z innym wiekiem. Czy liczymy to na podstawie kazdego przypisania do kursu czy w jakich momentach?
+- co to ten select z except? chodzi o plik csv i pomijanie juz wczytanych rekordów?

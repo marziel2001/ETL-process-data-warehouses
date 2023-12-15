@@ -22,6 +22,9 @@ inner join szkolaJazdyBD.dbo.StudentCourse stc on st.ID = stc.FK_Student
 inner join szkolaJazdyBD.dbo.Course c on c.ID = stc.FK_Course
 go
 
+select * from szkolaJazdyBD.dbo.Student
+
+
 merge into szkolaJazdyHD.dbo.Student as tt
 	using vStudents as st
 		ON st.PESEL = tt.PESEL

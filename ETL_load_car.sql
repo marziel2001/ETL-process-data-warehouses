@@ -1,7 +1,6 @@
 USE szkolaJazdyHD
 
 IF (OBJECT_ID('vCar') IS NOT NULL) DROP VIEW vCar
-
 GO
 
 CREATE VIEW vCar
@@ -12,13 +11,7 @@ AS SELECT
 	Age = 0,
 	Actual = 1
 FROM szkolaJazdyBD.dbo.Car
-
 GO
-
-SELECT * FROM vCar
-
-GO
-
 
 merge into szkolaJazdyHD.dbo.Car as tt
 	using vCar as st
@@ -27,13 +20,12 @@ merge into szkolaJazdyHD.dbo.Car as tt
 		and st.Model = tt.Model
 			when not matched then insert
 				values (
-				st.VIN,
-				st.Brand,
-				st.Model,
-				st.Age,
-				st.Actual
+					st.VIN,
+					st.Brand,
+					st.Model,
+					st.Age,
+					st.Actual
 				);
-
 
 DROP VIEW vCar
 
@@ -42,17 +34,6 @@ select * from szkolaJazdyHD.dbo.Car
 USE master
 
 /*
-
-Database:
-
-CREATE TABLE Car
-(
-    VIN NVARCHAR(17) PRIMARY KEY,
-    Year INT,
-    Brand NVARCHAR(50),
-    Model NVARCHAR(50)
-);
-
 Data warehouse:
 
 CREATE TABLE Car (
@@ -63,5 +44,4 @@ CREATE TABLE Car (
     Age INT,
     Actual BIT
 );
-
 */
