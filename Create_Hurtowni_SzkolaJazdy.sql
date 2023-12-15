@@ -20,9 +20,7 @@ CREATE TABLE Course (
     ID INT PRIMARY KEY IDENTITY(1,1),
     Edition INT,
     ID_StartDate INT,
-    ID_EndDate INT,
-    FOREIGN KEY (ID_StartDate) REFERENCES Date(ID),
-    FOREIGN KEY (ID_EndDate) REFERENCES Date(ID)
+    FOREIGN KEY (ID_StartDate) REFERENCES Date(ID)
 );
 
 CREATE TABLE Car (
