@@ -41,9 +41,6 @@ inner join szkolaJazdyHD.dbo.Date as pd on CONVERT(varchar(10), pd.date, 111)
 group by sc.FK_Student, sc.FK_Course, id.ID, pd.ID, sc.FK_Bill, c.BasePrice, m.NoExtraDrivingHours
 go
 
-select stc.*, st.ID from 
-szkolaJazdyBD.dbo.StudentCourse as stc full join szkolaJazdyBD.dbo.Student as st on stc.FK_Student = st.ID 
-
 merge into szkolaJazdyHD.dbo.StudentCourse as tt
 	using vStudentCourse as st
 		ON st.FK_Student = tt.ID_Student
@@ -67,6 +64,8 @@ merge into szkolaJazdyHD.dbo.StudentCourse as tt
 				st.noExtraDrivingHours,
 				st.theoryScore
 			);
+
+select * from szkolaJazdyHD.dbo.StudentCourse
 
 drop view vStudentCourse
 drop view drivingHoursMeasures
