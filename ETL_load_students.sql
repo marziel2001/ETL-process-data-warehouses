@@ -22,11 +22,31 @@ inner join szkolaJazdyBD.dbo.StudentCourse stc on st.ID = stc.FK_Student
 inner join szkolaJazdyBD.dbo.Course c on c.ID = stc.FK_Course
 go
 
-
-select * from vStudents order by [year_of_joining];
+merge into szkolaJazdyHD.dbo.Student as tt
+	using vStudents as st
+		ON st.PESEL = tt.PESEL
+		and st.FirstName_LastName = tt.FirstName_LastName
+		and st.Age = tt.Age
+		and st.Actual = tt.Actual
+		when not matched then insert
+			values (
+				st.PESEL,
+				st.FirstName_LastName,
+				st.Age,
+				st.Actual
+			);
 
 drop view vStudents;
+
+select * from szkolaJazdyHD.dbo.Student
 
 use master
 
 --Select * from Student;
+--CREATE TABLE Student (
+--    ID INT PRIMARY KEY IDENTITY(1,1),
+--    PESEL VARCHAR(11),
+--    FirstName_LastName VARCHAR(100),
+--    Age INT,
+--    Actual BIT
+--);
