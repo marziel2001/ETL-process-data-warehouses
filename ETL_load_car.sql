@@ -1,7 +1,5 @@
 USE szkolaJazdyHD
 go
---alter table StudentCourse
---drop constraint ID_Car
 
 IF (OBJECT_ID('vCar') IS NOT NULL) DROP VIEW vCar
 GO
@@ -57,3 +55,9 @@ DROP VIEW vCar
 select * from szkolaJazdyHD.dbo.Car
 
 USE master
+
+
+-- Gdyby ktoœ pytal
+-- https://www.sqlservercentral.com/articles/slowly-changing-dimensions-using-t-sql-merge
+-- po co tabela pomocnicza
+-- https://stackoverflow.com/questions/2642504/scd2-merge-statement-sql-server
