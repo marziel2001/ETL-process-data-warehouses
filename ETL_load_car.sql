@@ -9,7 +9,7 @@ AS SELECT
 	VIN,
 	Brand,
 	Model,
-	Age = cast(DATEPART(YEAR, CURRENT_TIMESTAMP) as int) - Year --returns cars year in time of ETL process
+	Age = cast(DATEPART(YEAR, CURRENT_TIMESTAMP) as int) - Year --returns cars year in time of ETL process execution
 FROM szkolaJazdyBD.dbo.Car
 GO
 
@@ -56,8 +56,7 @@ select * from szkolaJazdyHD.dbo.Car
 
 USE master
 
-
--- Gdyby ktoœ pytal
 -- https://www.sqlservercentral.com/articles/slowly-changing-dimensions-using-t-sql-merge
+-- Gdyby ktoœ pytal
 -- po co tabela pomocnicza
 -- https://stackoverflow.com/questions/2642504/scd2-merge-statement-sql-server
