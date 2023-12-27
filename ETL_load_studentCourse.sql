@@ -3,63 +3,66 @@ go
 
 if (object_id('drivingHoursMeasures') is not null) drop view drivingHoursMeasures;
 go
-create view drivingHoursMeasures
-as
-Select
-	dl.FK_StudentCourse,
-	NoExtraDrivingHours = sum(datepart(HOUR, dl.EndTime - dl.StartTime)) - 30
 
+if (object_id('vStudentCourse') is not null) drop view vStudentCourse;
+go
+
+create view drivingHoursMeasures as
+Select
+	ID_studentCourse = dl.FK_StudentCourse,
+	NoExtraDrivingHours = sum(datepart(HOUR, dl.EndTime - dl.StartTime)) - 30
 from szkolaJazdyBD.dbo.DrivingLesson as dl
 group by dl.FK_StudentCourse
 go
 
-if (object_id('vStudentCourse') is not null) drop view vStudentCourse;
-go
-create view vStudentCourse
-as
+create view vStudentCourse as
 Select
-	sc.FK_Student,
-	sc.FK_Course,
-	id.ID as Issue_date,
-	pd.ID as payment_date,
-	carID = 0,-- add car ID
-	sc.FK_Bill,
-	c.BasePrice,
-	noExtraDrivingHours = m.NoExtraDrivingHours,
-	max(ex.TheoryScore) as theoryScore
-
-
-from szkolaJazdyBD.dbo.StudentCourse as sc
-inner join szkolaJazdyBD.dbo.Bill as b on sc.FK_Bill = b.ID
-inner join szkolaJazdyBD.dbo.Course as c on sc.FK_Course = c.ID
-inner join szkolaJazdyHD.dbo.vTheory as ex on ex.stcourse = sc.StudentCourse
-inner join drivingHoursMeasures as m on m.FK_StudentCourse = sc.StudentCourse
+	ID_Student = s.ID --ok
+	, ID_Course = c.ID --ok
+	, Issue_date = id.ID
+	, Payment_date = pd.ID
+	, ID_Car = 0 -- !!!!!!!!!!!!!!!!!!!!! add car ID  !!!!!!!!!!!!!!!!!!!!!!!!!
+	, ID_Bill = bd_sc.FK_Bill
+	, bd_c.BasePrice
+	, noExtraDrivingHours = m.NoExtraDrivingHours
+	, theoryScore = max(ex.TheoryScore) 
+	-- student po kluczu biznesowym
+from szkolaJazdyBD.dbo.StudentCourse as bd_sc 
+join szkolaJazdyBD.dbo.Student as bd_s on bd_sc.FK_Student = bd_s.ID 
+join szkolaJazdyHD.dbo.Student as s on bd_s.PESEL = s.PESEL
+-- course po kluczu biznesowym
+join szkolaJazdyBD.dbo.Course as bd_c on bd_sc.FK_Course = bd_c.ID 
+join szkolaJazdyHD.dbo.Date as cd on CONVERT(varchar(10), bd_c.StartDate, 111) = convert(varchar(10), cd.date, 111) 
+join szkolaJazdyHD.dbo.Course as c on c.ID_StartDate = cd.ID
+-- bill jako degenerate dimension
+join szkolaJazdyBD.dbo.Bill as b on bd_sc.FK_Bill = b.ID
+-- wyniki z teorii 
+join szkolaJazdyHD.dbo.vTheory as ex on ex.stcourse = bd_sc.StudentCourse
+-- ilosc dodatkowych godzin jazd
+join drivingHoursMeasures as m on m.ID_studentCourse = bd_sc.StudentCourse
+-- issue date rachunku
 inner join szkolaJazdyHD.dbo.Date as id on CONVERT(varchar(10), id.date, 111) 
 										= convert(varchar(10), b.issueTime, 111)
+-- payment date rachunku
 inner join szkolaJazdyHD.dbo.Date as pd on CONVERT(varchar(10), pd.date, 111) 
 										= convert(varchar(10), b.PaymentTime, 111)
-group by sc.FK_Student, sc.FK_Course, id.ID, pd.ID, sc.FK_Bill, c.BasePrice, m.NoExtraDrivingHours
+group by s.ID, c.ID, id.ID, pd.ID, bd_sc.FK_Bill, BasePrice, noExtraDrivingHours
 go
+
+select * from vStudentCourse
 
 merge into szkolaJazdyHD.dbo.StudentCourse as tt
 	using vStudentCourse as st
-		ON st.FK_Student = tt.ID_Student
-		and st.FK_Course = tt.ID_Course
-		and st.Issue_date = tt.ID_BillIssueDate
-		and st.payment_date = tt.ID_BillPaymentDate
-		and st.carID = tt.ID_car
-		and st.FK_Bill = tt.Bill
-		and st.BasePrice = tt.CoursePrice
-		and st.noExtraDrivingHours = No_extra_driving_hours
-		and st.theoryScore = tt.theory_score
+		ON st.ID_Student = tt.ID_Student
+		and st.ID_Course = tt.ID_Course
 		when not matched then insert
 			values (
-				st.FK_Student,
-				st.FK_Course,
+				st.ID_Student,
+				st.ID_Course,
 				st.Issue_date,
-				st.payment_date,
-				st.carID,
-				st.FK_Bill,
+				st.Payment_date,
+				st.ID_Car,
+				st.ID_Bill,
 				st.BasePrice,
 				st.noExtraDrivingHours,
 				st.theoryScore
@@ -67,8 +70,6 @@ merge into szkolaJazdyHD.dbo.StudentCourse as tt
 
 select * from szkolaJazdyHD.dbo.StudentCourse
 
-drop view vStudentCourse
-drop view drivingHoursMeasures
 use master
 
 --CREATE TABLE StudentCourse
@@ -83,6 +84,7 @@ use master
 --    CoursePrice MONEY NOT NULL,
 --    No_extra_driving_hours INT NOT NULL,
 --    theory_score FLOAT NOT NULL,
+
 --    FOREIGN KEY (ID_Student) REFERENCES Student(ID),
 --    FOREIGN KEY (ID_Course) REFERENCES Course(ID),
 --    FOREIGN KEY (ID_BillIssueDate) REFERENCES Date(ID),
