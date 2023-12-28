@@ -69,23 +69,3 @@ drop view vDrivingLessonTmp
 select * from szkolaJazdyHD.dbo.DrivingLesson
 
 use master
-
-
---CREATE TABLE DrivingLesson (
---	ID INT IDENTITY(1,1) PRIMARY KEY,
---    ID_Instructor INT NOT NULL,
---    ID_StudentCourse INT NOT NULL,
---    Bill VARCHAR(15) NOT NULL,
---    ID_Date INT NOT NULL,
---    Duration INT NOT NULL,
---    ID_BillIssueDate INT NOT NULL,
---    ID_BillPaymentDate INT NOT NULL,
---    One_hour_price MONEY NOT NULL,
---    Total_cost MONEY NOT NULL,
-
---    FOREIGN KEY (ID_Instructor) REFERENCES Employee(ID),
---    FOREIGN KEY (ID_StudentCourse) REFERENCES StudentCourse(ID),
---    FOREIGN KEY (ID_Date) REFERENCES Date(ID),
---    FOREIGN KEY (ID_BillIssueDate) REFERENCES Date(ID),
---    FOREIGN KEY (ID_BillPaymentDate) REFERENCES Date(ID)
---);
