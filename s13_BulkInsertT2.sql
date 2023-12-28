@@ -45,13 +45,13 @@ BULK INSERT DrivingLesson
 	WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', DATAFILETYPE='widechar', CHECK_CONSTRAINTS);
 	Select * from DrivingLesson;
 
-CREATE DATABASE szkolaJazdy_Snapshot_T2 
-ON
-(
-	NAME = szkolaJazdyBD,
-	FILENAME = 'C:\snapshotyHurtownie\DL_snapshot_t2.ss'
-)
-AS SNAPSHOT OF szkolaJazdyBD
-GO
+--CREATE DATABASE szkolaJazdy_Snapshot_T2 
+--ON
+--(
+--	NAME = szkolaJazdyBD,
+--	FILENAME = 'C:\snapshotyHurtownie\DL_snapshot_t2.ss'
+--)
+--AS SNAPSHOT OF szkolaJazdyBD
+--GO
 
 use master

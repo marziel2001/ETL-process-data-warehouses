@@ -74,7 +74,7 @@ SELECT PESEL, FirstName_LastName, Age, Actual
 FROM tmpStudent
 
 SELECT * FROM szkolaJazdyHD.dbo.Student
-WHERE FirstName_LastName like 'Aniela Nyc' 
+--WHERE FirstName_LastName like 'Aniela Nyc' 
 
 USE master
 
