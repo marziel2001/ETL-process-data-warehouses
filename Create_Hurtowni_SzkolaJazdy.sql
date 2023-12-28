@@ -119,7 +119,8 @@ use szkolaJazdyHD
 go
 
 SELECT * FROM Date;
-SELECT * FROM Course;
+select * from course;
+SELECT *, ROW_NUMBER() over (order by ID_StartDate) as number FROM Course;
 SELECT * FROM Car;
 SELECT * FROM Student;
 SELECT * FROM Employee;
