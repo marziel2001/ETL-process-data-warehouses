@@ -36,7 +36,7 @@ CREATE TABLE Student (
     ID INT PRIMARY KEY IDENTITY(0,1),
     PESEL VARCHAR(11),
     FirstName_LastName VARCHAR(100),
-    Age INT,
+    Age VARCHAR(10),
     Actual BIT
 );
 

@@ -4,10 +4,13 @@ GO
 IF (object_id('tmpStudent') IS NOT NULL) DROP TABLE tmpStudent;
 GO
 
+IF (object_id('vStudentsAges') IS NOT NULL) DROP VIEW vStudentsAges;
+GO
+
 IF (object_id('vStudents') IS NOT NULL) DROP VIEW vStudents;
 GO
 
-CREATE VIEW vStudents AS
+CREATE VIEW vStudentsAges AS
 SELECT 
 		[PESEL],
 		[FirstName_LastName] = cast([FirstName] + ' ' + [LastName] AS varchar(100)),
@@ -17,6 +20,26 @@ SELECT
                END
 FROM szkolaJazdyBD.dbo.Student AS st
 GO
+
+select * from vStudentsAges
+GO
+
+CREATE VIEW vStudents AS
+SELECT 
+		[PESEL],
+		[FirstName_LastName],
+		[Age] = CASE
+					WHEN Age between 18 and 20 then '18-20'
+					WHEN Age between 21 and 30 then '21-30'
+					WHEN Age between 31 and 40 then '31-40'
+					WHEN Age between 41 and 60 then '41-60'
+					WHEN Age > 60 then '60+'
+               END
+FROM vStudentsAges AS st
+GO
+
+select * from vStudents
+
 
 CREATE TABLE tmpStudent (ID INT PRIMARY KEY IDENTITY(0, 1), PESEL VARCHAR(11), FirstName_LastName VARCHAR(100), Age INT, Actual BIT);
 
