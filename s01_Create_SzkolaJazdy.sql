@@ -1,12 +1,14 @@
 USE master;
 go
+
 DROP DATABASE szkolaJazdyBD;
 go
+
 CREATE DATABASE szkolaJazdyBD;
 go
+
 USE szkolaJazdyBD;
 go
-
 
 CREATE TABLE Student
 (
@@ -92,7 +94,7 @@ CREATE TABLE DrivingLesson
     FOREIGN KEY (FK_Bill) REFERENCES Bill(ID)
 );
 
-Select count(*) as DrivingLessonsCount FROM DrivingLesson;
+Select * from DrivingLesson;
 Select * from Car;
 Select * from Bill;
 Select * from Employee;

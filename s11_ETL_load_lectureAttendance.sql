@@ -11,15 +11,16 @@ SELECT
 	,Present = CAST(bd_la.Present AS float)
 
 FROM szkolaJazdyBD.dbo.LectureAttendanceList AS bd_la
-join szkolaJazdyHD.dbo.LectureAttendance as la on bd_la.FK_StudentCourse = la.ID_StudentCourse and bd_la.FK_Lecture = la.ID_Lecture
+inner join szkolaJazdyHD.dbo.LectureAttendance as la on bd_la.FK_StudentCourse = la.ID_StudentCourse and bd_la.FK_Lecture = la.ID_Lecture
 
-join szkolaJazdyBD.dbo.StudentCourse as bd_sc on bd_sc.StudentCourse = bd_la.FK_StudentCourse
-join szkolaJazdyHD.dbo.StudentCourse as sc on sc.ID_Student = bd_sc.FK_Student and sc.ID_Course = bd_sc.FK_Course
+inner join szkolaJazdyBD.dbo.StudentCourse as bd_sc on bd_sc.StudentCourse = bd_la.FK_StudentCourse
+inner join szkolaJazdyHD.dbo.StudentCourse as sc on sc.ID_Student = bd_sc.FK_Student and sc.ID_Course = bd_sc.FK_Course
 
 INNER JOIN szkolaJazdyBD.dbo.Lecture AS bd_l ON bd_l.ID = bd_la.FK_Lecture
 INNER JOIN szkolaJazdyHD.dbo.Date AS d ON D.Date = CONVERT(VARCHAR(10), bd_l.StartTime, 111)
-
 GO
+
+select * from vLectureAttendance
 
 merge into szkolaJazdyHD.dbo.LectureAttendance as tt
 	using vLectureAttendance as st

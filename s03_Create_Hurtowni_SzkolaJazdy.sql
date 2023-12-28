@@ -1,13 +1,17 @@
 USE master;
 go
+
 DROP DATABASE szkolaJazdyHD;
 go
+
 CREATE DATABASE szkolaJazdyHD;
 go
+
 USE szkolaJazdyHD;
 go
 
-CREATE TABLE Date (
+CREATE TABLE Date 
+(
     ID INT PRIMARY KEY IDENTITY(0,1),
 	Date date,
     Day INT,
@@ -16,14 +20,16 @@ CREATE TABLE Date (
     Holiday VARCHAR(50)
 );
 
-CREATE TABLE Course (
+CREATE TABLE Course 
+(
     ID INT PRIMARY KEY IDENTITY(0,1),
     Edition INT,
     ID_StartDate INT,
     FOREIGN KEY (ID_StartDate) REFERENCES Date(ID)
 );
 
-CREATE TABLE Car (
+CREATE TABLE Car 
+(
     ID INT PRIMARY KEY IDENTITY(0,1),
     VIN VARCHAR(17),
     Brand VARCHAR(50),
@@ -32,7 +38,8 @@ CREATE TABLE Car (
     Actual BIT
 );
 
-CREATE TABLE Student (
+CREATE TABLE Student 
+(
     ID INT PRIMARY KEY IDENTITY(0,1),
     PESEL VARCHAR(11),
     FirstName_LastName VARCHAR(100),
@@ -40,7 +47,8 @@ CREATE TABLE Student (
     Actual BIT
 );
 
-CREATE TABLE Employee (
+CREATE TABLE Employee 
+(
     ID INT PRIMARY KEY IDENTITY(0,1),
     PESEL VARCHAR(11) UNIQUE,
     FirstName_LastName VARCHAR(100)
@@ -67,7 +75,8 @@ CREATE TABLE StudentCourse
     FOREIGN KEY (ID_car) REFERENCES Car(ID),
 );
 
-CREATE TABLE DrivingLesson (
+CREATE TABLE DrivingLesson 
+(
 	ID INT IDENTITY(0,1) PRIMARY KEY,
     ID_Instructor INT NOT NULL,
     ID_StudentCourse INT NOT NULL,
@@ -86,7 +95,8 @@ CREATE TABLE DrivingLesson (
 );
 
 
-CREATE TABLE LectureAttendance (
+CREATE TABLE LectureAttendance 
+(
     ID_StudentCourse INT NOT NULL,
     ID_Date INT NOT NULL,
 	ID_Lecture INT NOT NULL,
@@ -96,7 +106,8 @@ CREATE TABLE LectureAttendance (
     FOREIGN KEY (ID_Date) REFERENCES Date(ID)
 );
 
-CREATE TABLE TheoryAttempt (
+CREATE TABLE TheoryAttempt 
+(
     ID_StudentCourse INT NOT NULL,
     AttemptNumber INT NOT NULL,
     Result FLOAT NOT NULL,
@@ -106,7 +117,8 @@ CREATE TABLE TheoryAttempt (
     FOREIGN KEY (ID_Date) REFERENCES Date(ID)
 );
 
-CREATE TABLE PracticeAttempt (
+CREATE TABLE PracticeAttempt 
+(
     ID_StudentCourse INT NOT NULL,
     AttemptNumber INT NOT NULL,
     Result FLOAT NOT NULL,
@@ -115,10 +127,7 @@ CREATE TABLE PracticeAttempt (
     FOREIGN KEY (ID_Date) REFERENCES Date(ID)
 );
 
-use szkolaJazdyHD
-go
-
-SELECT * FROM Date;
+SELECT * from Date;
 select * from course;
 SELECT *, ROW_NUMBER() over (order by ID_StartDate) as number FROM Course;
 SELECT * FROM Car;

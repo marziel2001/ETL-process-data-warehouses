@@ -21,14 +21,16 @@ SELECT
 FROM szkolaJazdyBD.dbo.Student AS st
 GO
 
-select * from vStudentsAges
-GO
+
+--select * from vStudentsAges where PESEL='10292407441'
+--GO
 
 CREATE VIEW vStudents AS
 SELECT 
 		[PESEL],
 		[FirstName_LastName],
 		[Age] = CASE
+					WHEN Age between 0 and 17 then '18-'
 					WHEN Age between 18 and 20 then '18-20'
 					WHEN Age between 21 and 30 then '21-30'
 					WHEN Age between 31 and 40 then '31-40'
@@ -41,7 +43,7 @@ GO
 select * from vStudents
 
 
-CREATE TABLE tmpStudent (ID INT PRIMARY KEY IDENTITY(0, 1), PESEL VARCHAR(11), FirstName_LastName VARCHAR(100), Age INT, Actual BIT);
+CREATE TABLE tmpStudent (ID INT PRIMARY KEY IDENTITY(0, 1), PESEL VARCHAR(11), FirstName_LastName VARCHAR(100), Age VARCHAR(10), Actual BIT);
 
 INSERT INTO dbo.tmpStudent(PESEL, FirstName_LastName, Age, Actual)
 SELECT PESEL, FirstName_LastName, Age, 1 -- jesli dodajemy cos nowego to zawsze jest actual
@@ -54,7 +56,8 @@ FROM
 			THEN INSERT (PESEL, FirstName_LastName, Age, Actual)
 				VALUES (st.PESEL, st.FirstName_LastName, st.Age, 1) 
 		WHEN matched
-			AND st.age <> tt.age
+			AND (st.age <> tt.age
+			or st.FirstName_LastName <> tt.FirstName_LastName)
 			AND tt.Actual = 1
 			THEN UPDATE
 			SET tt.actual = 0 
@@ -74,3 +77,4 @@ SELECT * FROM szkolaJazdyHD.dbo.Student
 WHERE FirstName_LastName like 'Aniela Nyc' 
 
 USE master
+

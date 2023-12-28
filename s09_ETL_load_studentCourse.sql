@@ -1,4 +1,4 @@
-use szkolaJazdyHD
+use szkolaJazdyHD;
 go
 
 if (object_id('drivingHoursMeasures') is not null) drop view drivingHoursMeasures;
@@ -25,7 +25,7 @@ Select
 	, ID_Bill = bd_sc.FK_Bill
 	, bd_c.BasePrice
 	, noExtraDrivingHours = m.NoExtraDrivingHours
-	, theoryScore = max(ex.TheoryScore) 
+	, theoryScore = 0--max(ex.TheoryScore) 
 	-- student po kluczu biznesowym
 from szkolaJazdyBD.dbo.StudentCourse as bd_sc 
 join szkolaJazdyBD.dbo.Student as bd_s on bd_sc.FK_Student = bd_s.ID 
@@ -37,7 +37,7 @@ join szkolaJazdyHD.dbo.Course as c on c.ID_StartDate = cd.ID
 -- bill jako degenerate dimension
 join szkolaJazdyBD.dbo.Bill as b on bd_sc.FK_Bill = b.ID
 -- wyniki z teorii 
-join szkolaJazdyHD.dbo.vTheory as ex on ex.stcourse = bd_sc.StudentCourse
+--join szkolaJazdyHD.dbo.vTheory as ex on ex.stcourse = bd_sc.StudentCourse
 -- ilosc dodatkowych godzin jazd
 join drivingHoursMeasures as m on m.ID_studentCourse = bd_sc.StudentCourse
 -- issue date rachunku
@@ -71,23 +71,3 @@ merge into szkolaJazdyHD.dbo.StudentCourse as tt
 select * from szkolaJazdyHD.dbo.StudentCourse
 
 use master
-
---CREATE TABLE StudentCourse
---(
---    ID INT PRIMARY KEY IDENTITY(1,1),
---    ID_Student INT NOT NULL,
---    ID_Course INT NOT NULL,
---    ID_BillIssueDate INT NOT NULL,
---    ID_BillPaymentDate INT NOT NULL,
---	  ID_car INT NOT NULL,
---    Bill VARCHAR(15) NOT NULL,
---    CoursePrice MONEY NOT NULL,
---    No_extra_driving_hours INT NOT NULL,
---    theory_score FLOAT NOT NULL,
-
---    FOREIGN KEY (ID_Student) REFERENCES Student(ID),
---    FOREIGN KEY (ID_Course) REFERENCES Course(ID),
---    FOREIGN KEY (ID_BillIssueDate) REFERENCES Date(ID),
---    FOREIGN KEY (ID_BillPaymentDate) REFERENCES Date(ID),
---    FOREIGN KEY (ID_car) REFERENCES Car(ID),
---);
