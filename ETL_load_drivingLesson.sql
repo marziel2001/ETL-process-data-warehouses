@@ -3,65 +3,58 @@ go
 
 if (object_id('vDrivingLessonTmp') is not null) drop view vDrivingLessonTmp;
 go
-create view vDrivingLessonTmp
-as
+
+create view vDrivingLessonTmp as
 Select
-	dl.FK_Instructor,
-	dl.FK_StudentCourse,
-	Bill_id = 
+	ID_Instructor = e.ID
+	,ID_StudentCourse = sc.ID
+	,Bill_id = 
 		case
 			when dl.FK_Bill is null
 				then 0
 				else dl.FK_Bill
-			end,
-	d.ID as Date_,
-	duration = datepart(HOUR, dl.EndTime - dl.StartTime),
-	Bill_Issue_Date = 
+			end
+	,Date_ = d.ID
+	,duration = datepart(HOUR, dl.EndTime - dl.StartTime)
+	,Bill_Issue_Date = 
 		case
 			when id.ID is null
 				then 0
 				else id.ID
-			end,
-	Bill_Payment_Date = 
+			end
+	,Bill_Payment_Date = 
 		case
 			when pd.ID is null
 				then 0
 				else pd.ID
-			end,
-	c.ExtraHourPrice as one_hour_price,
-	total_cost = datepart(HOUR, dl.EndTime - dl.StartTime) * c.ExtraHourPrice
+			end
+	,one_hour_price = bd_c.ExtraHourPrice
+	,total_cost = datepart(HOUR, dl.EndTime - dl.StartTime) * bd_c.ExtraHourPrice
 
 from szkolaJazdyBD.dbo.DrivingLesson as dl
-left join szkolaJazdyBD.dbo.Bill as b on dl.FK_Bill = b.ID
-	inner join szkolaJazdyBD.dbo.StudentCourse as sc on sc.StudentCourse = dl.FK_StudentCourse
-	inner join szkolaJazdyBD.dbo.Course as c on c.ID = sc.FK_Course
+join szkolaJazdyBD.dbo.Employee as bd_e on bd_e.ID = dl.FK_Instructor
+join szkolaJazdyHD.dbo.Employee as e on e.PESEL = bd_e.PESEL
 
-left join szkolaJazdyHD.dbo.Date as id on CONVERT(varchar(10), id.date, 111) 
-										= convert(varchar(10), b.issueTime, 111)
-left join szkolaJazdyHD.dbo.Date as pd on CONVERT(varchar(10), pd.date, 111) 
-										= convert(varchar(10), b.PaymentTime, 111)
-inner join szkolaJazdyHD.dbo.Date as d on CONVERT(varchar(10), d.date, 111) 
-										= CONVERT(varchar(10), dl.StartTime, 111)
+join szkolaJazdyBD.dbo.StudentCourse as bd_sc on bd_sc.StudentCourse = dl.FK_StudentCourse
+join szkolaJazdyHD.dbo.StudentCourse as sc on sc.ID_Student = bd_sc.FK_Student and sc.ID_Course = bd_sc.FK_Course
 
+join szkolaJazdyBD.dbo.Course as bd_c on bd_c.ID = bd_sc.FK_Course
+
+left join szkolaJazdyBD.dbo.Bill as bd_b on dl.FK_Bill = bd_b.ID
+
+left join szkolaJazdyHD.dbo.Date as id on CONVERT(varchar(10), id.date, 111) = convert(varchar(10), bd_b.issueTime, 111)
+left join szkolaJazdyHD.dbo.Date as pd on CONVERT(varchar(10), pd.date, 111) = convert(varchar(10), bd_b.PaymentTime, 111)
+inner join szkolaJazdyHD.dbo.Date as d on CONVERT(varchar(10), d.date, 111) = CONVERT(varchar(10), dl.StartTime, 111)
 go
-
---select * from vDrivingLessonTmp
 
 merge into szkolaJazdyHD.dbo.DrivingLesson as tt
 	using vDrivingLessonTmp as st
-		ON st.FK_Instructor = tt.ID_Instructor
-		and st.FK_StudentCourse = tt.ID_StudentCourse
-		and st.Bill_id = tt.Bill
+		ON st.ID_StudentCourse = tt.ID_StudentCourse
 		and st.Date_ = tt.ID_Date
-		and st.duration = tt.Duration
-		and st.Bill_Issue_Date = tt.ID_BillIssueDate
-		and st.Bill_Payment_Date = tt.ID_BillPaymentDate
-		and st.one_hour_price = tt.One_hour_price 
-		and st.total_cost = tt.Total_cost
 			when not matched then insert
 				values (
-					st.FK_Instructor,
-					st.FK_StudentCourse,
+					st.ID_Instructor,
+					st.ID_StudentCourse,
 					st.Bill_id,
 					st.Date_,
 					st.duration,
@@ -74,7 +67,6 @@ merge into szkolaJazdyHD.dbo.DrivingLesson as tt
 drop view vDrivingLessonTmp
 
 select * from szkolaJazdyHD.dbo.DrivingLesson
-
 
 use master
 
@@ -90,6 +82,7 @@ use master
 --    ID_BillPaymentDate INT NOT NULL,
 --    One_hour_price MONEY NOT NULL,
 --    Total_cost MONEY NOT NULL,
+
 --    FOREIGN KEY (ID_Instructor) REFERENCES Employee(ID),
 --    FOREIGN KEY (ID_StudentCourse) REFERENCES StudentCourse(ID),
 --    FOREIGN KEY (ID_Date) REFERENCES Date(ID),
