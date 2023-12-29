@@ -22,17 +22,17 @@ GO
 
 select * from vLectureAttendance order by ID_StudentCourse
 
---merge into szkolaJazdyHD.dbo.LectureAttendance as tt
---	using vLectureAttendance as st
---		ON st.ID_StudentCourse = tt.ID_StudentCourse
---		and st.ID_Lecture = tt.ID_Lecture
---		when not matched then insert
---			values (
---				st.ID_StudentCourse,
---				st.ID_Date,
---				st.ID_Lecture,
---				st.Present
---			);
+merge into szkolaJazdyHD.dbo.LectureAttendance as tt
+	using vLectureAttendance as st
+		ON st.ID_StudentCourse = tt.ID_StudentCourse
+		and st.ID_Lecture = tt.ID_Lecture
+		when not matched then insert
+			values (
+				st.ID_StudentCourse,
+				st.ID_Date,
+				st.ID_Lecture,
+				st.Present
+			);
 
 DROP VIEW vLectureAttendance
 
