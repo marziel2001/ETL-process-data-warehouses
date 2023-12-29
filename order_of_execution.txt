@@ -1,12 +1,25 @@
-Date 
+t1
+s01
+s02
+s03
+s04
+s05
+s06
+s07
+s08
+s09
+s10
+s11
+s12
 
-Course
-Car
-Student
-Employee
-
-StudentCourse
-DrivingLesson
-LectureAttendance
-TheoryAttempt
-PracticeAttempt
+t2
+s01 - to clear database to be able to fill it with t2 which contains t1
+s13
+s05
+s06
+s07
+s08
+s09
+s10
+s11
+s14
