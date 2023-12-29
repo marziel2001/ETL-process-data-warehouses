@@ -4,10 +4,13 @@ go
 IF (OBJECT_ID('tmpCar') IS NOT NULL) DROP TABLE tmpCar
 GO
 
+IF (OBJECT_ID('vCarAges') IS NOT NULL) DROP VIEW vCarAges
+GO
+
 IF (OBJECT_ID('vCar') IS NOT NULL) DROP VIEW vCar
 GO
 
-CREATE VIEW vCar AS
+CREATE VIEW vCarAges AS
 SELECT
 	VIN,
 	Brand,
@@ -16,7 +19,24 @@ SELECT
 FROM szkolaJazdyBD.dbo.Car
 GO
 
-CREATE TABLE tmpCar (ID INT PRIMARY KEY IDENTITY(0,1), VIN VARCHAR(17), Brand VARCHAR(50), Model VARCHAR(50), Age INT, Actual BIT);
+
+CREATE VIEW vCar AS
+SELECT
+	VIN,
+	Brand,
+	Model,
+	Age = CASE
+					WHEN Age between 0 and 3 then '0-3'
+					WHEN Age between 4 and 6 then '4-6'
+					WHEN Age between 7 and 10 then '7-10'
+					WHEN Age between 11 and 15 then '11-15' 
+					WHEN Age > 15 then '15+'
+               END
+FROM vCarAges
+GO
+
+
+CREATE TABLE tmpCar (ID INT PRIMARY KEY IDENTITY(0,1), VIN VARCHAR(17), Brand VARCHAR(50), Model VARCHAR(50), Age VARCHAR(10), Actual BIT);
 
 insert into dbo.tmpCar (VIN, Brand, Model, Age, Actual)
 select VIN, Brand, Model, Age, 1
@@ -51,6 +71,6 @@ select * from szkolaJazdyHD.dbo.Car
 USE master
 
 -- https://www.sqlservercentral.com/articles/slowly-changing-dimensions-using-t-sql-merge
--- Gdyby ktoœ pytal
--- po co tabela pomocnicza
+-- Gdyby pad³o pytanie
+-- po co tabela pomocnicza:
 -- https://stackoverflow.com/questions/2642504/scd2-merge-statement-sql-server

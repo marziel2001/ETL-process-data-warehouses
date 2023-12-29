@@ -34,7 +34,7 @@ CREATE TABLE Car
     VIN VARCHAR(17),
     Brand VARCHAR(50),
     Model VARCHAR(50),
-    Age INT,
+    Age VARCHAR(10),
     Actual BIT
 );
 

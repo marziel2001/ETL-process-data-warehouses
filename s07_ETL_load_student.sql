@@ -21,7 +21,6 @@ SELECT
 FROM szkolaJazdyBD.dbo.Student AS st
 GO
 
-
 --select * from vStudentsAges where PESEL='10292407441'
 --GO
 
@@ -41,7 +40,6 @@ FROM vStudentsAges AS st
 GO
 
 select * from vStudents
-
 
 CREATE TABLE tmpStudent (ID INT PRIMARY KEY IDENTITY(0, 1), PESEL VARCHAR(11), FirstName_LastName VARCHAR(100), Age VARCHAR(10), Actual BIT);
 
