@@ -13,7 +13,7 @@ go
 CREATE TABLE Date 
 (
     ID INT PRIMARY KEY IDENTITY(0,1),
-	Date date,
+	Date date unique,
     Day INT,
     Month INT,
     Year INT,

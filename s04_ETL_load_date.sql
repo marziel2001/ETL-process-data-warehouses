@@ -4,7 +4,7 @@ go
 Declare @StartDate date;
 Declare @EndDate date;
 
-SELECT @StartDate = '1980-01-01', @EndDate = '2021-12-31';
+SELECT @StartDate = '1980-01-01', @EndDate = '2025-12-31';
 
 Declare @DateInProcess datetime = @StartDate;
 --delete from [dbo].[Date]
