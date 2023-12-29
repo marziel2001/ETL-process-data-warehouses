@@ -4,6 +4,7 @@ Course
 Car
 Student
 Employee
+
 StudentCourse
 DrivingLesson
 LectureAttendance

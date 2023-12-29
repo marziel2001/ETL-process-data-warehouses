@@ -49,7 +49,9 @@ inner join szkolaJazdyHD.dbo.Date as pd on CONVERT(varchar(10), pd.date, 111)
 group by s.ID, c.ID, id.ID, pd.ID, bd_sc.FK_Bill, BasePrice, noExtraDrivingHours
 go
 
-select * from vStudentCourse
+select * from szkolaJazdyBD.dbo.Student order by PESEL
+select * from szkolaJazdyHD.dbo.Student order by PESEL
+select * from vStudentCourse order by ID_Course
 
 merge into szkolaJazdyHD.dbo.StudentCourse as tt
 	using vStudentCourse as st
