@@ -43,15 +43,25 @@ CREATE TABLE Course
     ExtraHourPrice FLOAT(2)
 );
 
+CREATE TABLE Car
+(
+    VIN NVARCHAR(17) PRIMARY KEY, --BK
+    Year INT,
+    Brand NVARCHAR(50),
+    Model NVARCHAR(50)
+);
+
 CREATE TABLE StudentCourse
 (
     StudentCourse INT PRIMARY KEY IDENTITY(0,1),
     FK_Student INT, --BK
     FK_Course INT, --BK
     FK_Bill INT,
+	FK_Car NVARCHAR(17),
     FOREIGN KEY (FK_Student) REFERENCES Student(ID),
     FOREIGN KEY (FK_Course) REFERENCES Course(ID),
     FOREIGN KEY (FK_Bill) REFERENCES Bill(ID),
+	FOREIGN KEY (FK_Car) REFERENCES Car(VIN),
     CONSTRAINT StudentCourseConstraint UNIQUE (FK_Student, FK_Course)
 );
 CREATE TABLE Lecture
@@ -71,25 +81,15 @@ CREATE TABLE LectureAttendanceList
     FOREIGN KEY (FK_Lecture) REFERENCES Lecture (ID)
 );
 
-CREATE TABLE Car
-(
-    VIN NVARCHAR(17) PRIMARY KEY, --BK
-    Year INT,
-    Brand NVARCHAR(50),
-    Model NVARCHAR(50)
-);
-
 CREATE TABLE DrivingLesson
 (
     ID INT PRIMARY KEY IDENTITY(0,1),
     FK_Instructor INT,
-    FK_Car NVARCHAR(17),
     FK_StudentCourse INT, --BK
     FK_Bill INT NULL,
     StartTime DATETIME, --BK
     EndTime DATETIME,
     FOREIGN KEY (FK_Instructor) REFERENCES Employee(ID),
-    FOREIGN KEY (FK_Car) REFERENCES Car(VIN),
     FOREIGN KEY (FK_StudentCourse) REFERENCES StudentCourse(StudentCourse),
     FOREIGN KEY (FK_Bill) REFERENCES Bill(ID)
 );

@@ -21,7 +21,7 @@ Select
 	, ID_Course = c.ID --ok
 	, Issue_date = id.ID
 	, Payment_date = pd.ID
-	, ID_Car = 0 -- !!!!!!!!!!!!!!!!!!!!! add car ID  !!!!!!!!!!!!!!!!!!!!!!!!!
+	, ID_Car = car.ID
 	, ID_Bill = bd_sc.FK_Bill
 	, bd_c.BasePrice
 	, noExtraDrivingHours = m.NoExtraDrivingHours
@@ -46,7 +46,10 @@ inner join szkolaJazdyHD.dbo.Date as id on CONVERT(varchar(10), id.date, 111)
 -- payment date rachunku
 inner join szkolaJazdyHD.dbo.Date as pd on CONVERT(varchar(10), pd.date, 111) 
 										= convert(varchar(10), b.PaymentTime, 111)
-group by s.ID, c.ID, id.ID, pd.ID, bd_sc.FK_Bill, BasePrice, noExtraDrivingHours
+-- samochud
+join szkolaJazdyHD.dbo.Car as car on VIN = bd_sc.FK_Car
+
+group by s.ID, c.ID, id.ID, pd.ID, car.ID, bd_sc.FK_Bill, BasePrice, noExtraDrivingHours
 go
 
 select * from szkolaJazdyBD.dbo.Student order by PESEL

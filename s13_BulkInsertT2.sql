@@ -20,6 +20,11 @@ BULK INSERT Course
 	WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', DATAFILETYPE='widechar', CHECK_CONSTRAINTS);
 	Select * from Course;
 
+BULK INSERT Car
+	FROM 'C:\Users\Marcel\Documents\SQL Server Management Studio\HD_ETL\CSV\t2\new_Car.csv'
+	WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', DATAFILETYPE='widechar', CHECK_CONSTRAINTS);
+	Select * from Car;
+
 BULK INSERT StudentCourse
 	FROM 'C:\Users\Marcel\Documents\SQL Server Management Studio\HD_ETL\CSV\t2\new_StudentCourse.csv'
 	WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', DATAFILETYPE='widechar', CHECK_CONSTRAINTS);
@@ -35,23 +40,24 @@ BULK INSERT LectureAttendanceList
 	WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', DATAFILETYPE='widechar', CHECK_CONSTRAINTS);
 	select * from LectureAttendanceList;
 
-BULK INSERT Car
-	FROM 'C:\Users\Marcel\Documents\SQL Server Management Studio\HD_ETL\CSV\t2\new_Car.csv'
-	WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', DATAFILETYPE='widechar', CHECK_CONSTRAINTS);
-	Select * from Car;
-
 BULK INSERT DrivingLesson
 	FROM 'C:\Users\Marcel\Documents\SQL Server Management Studio\HD_ETL\CSV\t2\new_DrivingLesson.csv'
-	WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', DATAFILETYPE='widechar', CHECK_CONSTRAINTS);
+	WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', DATAFILETYPE='widechar');
 	Select * from DrivingLesson;
 
---CREATE DATABASE szkolaJazdy_Snapshot_T2 
+--CREATE DATABASE szkolaJazdy_Snapshot_T1 
 --ON
 --(
 --	NAME = szkolaJazdyBD,
---	FILENAME = 'C:\snapshotyHurtownie\DL_snapshot_t2.ss'
+--	FILENAME = 'C:\snapshotyHurtownie\DL_snapshot_t1.ss'
 --)
 --AS SNAPSHOT OF szkolaJazdyBD
 --GO
+
+--UPDATE Student
+--SET LastName = 'Kowalski'
+--WHERE PESEL = '25042139260'
+
+--Select * from Student where PESEL = '25042139260'
 
 use master
