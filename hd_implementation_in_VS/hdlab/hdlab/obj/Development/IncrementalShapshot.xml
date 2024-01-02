@@ -1,0 +1,110 @@
+﻿<DeploymentSnapshot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Target>
+    <Database>hdlab</Database>
+    <Server>localhost</Server>
+    <ConnectionString>Data Source=localhost;Timeout=0</ConnectionString>
+  </Target>
+  <Options>
+    <TransactionalDeployment>false</TransactionalDeployment>
+    <PartitionDeployment>DeployPartitions</PartitionDeployment>
+    <RoleDeployment>DeployRolesRetainMembers</RoleDeployment>
+    <ProcessingOption>DoNotProcess</ProcessingOption>
+    <OutputScript></OutputScript>
+    <ImpactAnalysisFile></ImpactAnalysisFile>
+    <ConfigurationSettingsDeployment>Deploy</ConfigurationSettingsDeployment>
+    <OptimizationSettingsDeployment>Deploy</OptimizationSettingsDeployment>
+    <WriteBackTableCreation>UseExisting</WriteBackTableCreation>
+  </Options>
+  <Snapshot>
+    <ObjectSnapshots>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
+        <TimeStamp>qiOKRXkfe3c/zaKYOuMWulvsdxo=08.12.2023 13:09:2208.12.2023 13:02:48</TimeStamp>
+        <ID>
+          <String>Szkola Jazdy HD</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>3qYLlkpzbN2I59ms3UFExE/s/G4=08.12.2023 13:03:1408.12.2023 13:03:13</TimeStamp>
+        <ID>
+          <String>Szkola Jazdy HD</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>1tekRMWke92wep4+rTHK4402EgU=08.12.2023 13:08:4008.12.2023 13:04:00</TimeStamp>
+        <ID>
+          <String>Date</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>ZILrh+GKYaOEatvh5xDqAmPD5yk=08.12.2023 13:08:4008.12.2023 13:04:00</TimeStamp>
+        <ID>
+          <String>Car</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>8xe6BOK9FCkB4wXpEmDfVwNJTko=08.12.2023 13:08:4008.12.2023 13:04:00</TimeStamp>
+        <ID>
+          <String>Course</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>/KCRyWZkEJroibBaeYWpDf4g2B8=08.12.2023 13:08:4008.12.2023 13:04:00</TimeStamp>
+        <ID>
+          <String>Student</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>1DugdIlFk4F1cOt70kjcM7wx2NA=08.12.2023 13:08:4008.12.2023 13:04:00</TimeStamp>
+        <ID>
+          <String>Student Course</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>sABoYY6cXIrujfH/2btRtWqh7G0=08.12.2023 13:08:4008.12.2023 13:04:00</TimeStamp>
+        <ID>
+          <String>Employee</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>7Bo2YZkraD1GWszZCy2BPgmRx/w=08.12.2023 13:08:4008.12.2023 13:04:00</TimeStamp>
+        <ID>
+          <String>Driving Lesson</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>i85WiuPh6oKaoyAYbgtLxUTaTeg=08.12.2023 13:13:0908.12.2023 13:11:59</TimeStamp>
+        <ID>
+          <String>Lecture</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Cube</Type>
+        <TimeStamp>cgS5L6zlSfojyVTcptF0lktxB0w=08.12.2023 13:40:2908.12.2023 13:04:00XFw6Xo8cPS5pwS153AcoxIBw1Zo=08.12.2023 13:04:0008.12.2023 13:04:00</TimeStamp>
+        <ID>
+          <String>Szkola Jazdy HD</String>
+        </ID>
+      </ObjectSnapshot>
+    </ObjectSnapshots>
+    <DatabaseSnapshot>
+      <Type>Microsoft.AnalysisServices.Database</Type>
+      <TimeStamp>dOJ4M2zBLMJ6SGiBSNMetpWafCQ=08.12.2023 13:01:1508.12.2023 13:01:15</TimeStamp>
+      <ID>
+        <String>hdlab</String>
+      </ID>
+    </DatabaseSnapshot>
+    <Granularity>Coarse</Granularity>
+  </Snapshot>
+  <AssemblyLocations />
+  <ProcessingComplete>true</ProcessingComplete>
+  <LastDeployed>2023-12-08T12:40:40.86Z</LastDeployed>
+</DeploymentSnapshot>

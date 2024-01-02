@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D2ABAB84-BF74-430A-B69E-9DC6D40DDA17}") = "hdlab", "hdlab\hdlab.dwproj", "{675917C0-C663-4B70-9124-85F61EE59536}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{675917C0-C663-4B70-9124-85F61EE59536}.Development|Default.ActiveCfg = Development
+		{675917C0-C663-4B70-9124-85F61EE59536}.Development|Default.Build.0 = Development
+		{675917C0-C663-4B70-9124-85F61EE59536}.Development|Default.Deploy.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {124A5846-8C2F-479F-943B-8E5636D3D913}
+	EndGlobalSection
+EndGlobal

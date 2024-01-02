@@ -1,0 +1,105 @@
+﻿<Cube xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="eaf14597-397f-46a9-a42c-1085f54861c3" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Szkola Jazdy HD</ID>
+  <MeasureGroups>
+    <MeasureGroup>
+      <ID>Student Course</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="030cc4a8-4af2-4f7a-afe4-cdfcd2fe9835">
+          <ID>Student Course</ID>
+          <Name>Student Course</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="acd21a4c-a8ea-44c8-bbb5-6acc04e61e0d">
+            <DataSourceViewID>Szkola Jazdy HD</DataSourceViewID>
+            <TableID>dbo_StudentCourse</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Driving Lesson</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="c521d829-7678-4e35-aec4-ca1a6750a419">
+          <ID>Driving Lesson</ID>
+          <Name>Driving Lesson</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="4fd156db-0dcc-49cf-b7a4-7721992fd25f">
+            <DataSourceViewID>Szkola Jazdy HD</DataSourceViewID>
+            <TableID>dbo_DrivingLesson</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Lecture Attendance</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="3237a475-a45a-487c-9290-66c610aff6db">
+          <ID>Lecture Attendance</ID>
+          <Name>Lecture Attendance</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="13a4b7e6-ffd7-4441-83dd-105121ece7bf">
+            <DataSourceViewID>Szkola Jazdy HD</DataSourceViewID>
+            <TableID>dbo_LectureAttendance</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Practice Attempt</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="42d33a8e-c322-4958-b2ad-db7fc3a33566">
+          <ID>Practice Attempt</ID>
+          <Name>Practice Attempt</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="b0ace278-9e33-4ad6-bcdd-b773922249c8">
+            <DataSourceViewID>Szkola Jazdy HD</DataSourceViewID>
+            <TableID>dbo_PracticeAttempt</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Theory Attempt</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="67d07ed1-9773-4aee-b1e8-c04dce1350c6">
+          <ID>Theory Attempt</ID>
+          <Name>Theory Attempt</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="dd22fe0d-8424-42c3-8cc9-a2350172d25f">
+            <DataSourceViewID>Szkola Jazdy HD</DataSourceViewID>
+            <TableID>dbo_TheoryAttempt</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+  </MeasureGroups>
+</Cube>
