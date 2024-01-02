@@ -97,11 +97,11 @@ CREATE TABLE DrivingLesson
 
 CREATE TABLE LectureAttendance 
 (
+	ID INT IDENTITY(0,1) PRIMARY KEY,
     ID_StudentCourse INT NOT NULL,
     ID_Date INT NOT NULL,
 	ID_Lecture INT NOT NULL,
     Present FLOAT NOT NULL,
-    PRIMARY KEY (ID_StudentCourse, ID_Lecture),
     FOREIGN KEY (ID_StudentCourse) REFERENCES StudentCourse(ID),
     FOREIGN KEY (ID_Date) REFERENCES Date(ID)
 );
