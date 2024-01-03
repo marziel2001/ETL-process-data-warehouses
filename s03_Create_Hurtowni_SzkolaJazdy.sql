@@ -119,6 +119,7 @@ CREATE TABLE TheoryAttempt
 
 CREATE TABLE PracticeAttempt 
 (
+    ID INT Identity(0,1) PRIMARY KEY,
     ID_StudentCourse INT NOT NULL,
     AttemptNumber INT NOT NULL,
     Result FLOAT NOT NULL,

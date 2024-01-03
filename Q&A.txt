@@ -1,5 +1,0 @@
-- Czy mamy zrobic osobne biznesowe klucze do tworzenia zwiazkow, bo zwiazki bo autoincrement ID sie psują i rozjezdzaja.
-Nie, mamy juz biznesowe klucze
-- co z car age i kiedy je liczyc i czy wtedy tworzyc wiecej samochodow co roku ten sam z innym wiekiem. Czy liczymy to na podstawie kazdego przypisania do kursu czy w jakich momentach?
-Uznajemy ze ETL dziala codziennie i car age jest sprawdzany co kazdy proces ETL, za zgodą prowadzącej
-- co to ten select z except? Nie wiadomo.
