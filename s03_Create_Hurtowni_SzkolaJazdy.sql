@@ -108,6 +108,7 @@ CREATE TABLE LectureAttendance
 
 CREATE TABLE TheoryAttempt 
 (
+    ID INT IDENTITY(0,1) PRIMARY KEY,
     ID_StudentCourse INT NOT NULL,
     AttemptNumber INT NOT NULL,
     Result FLOAT NOT NULL,
