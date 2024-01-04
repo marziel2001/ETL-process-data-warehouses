@@ -10,6 +10,7 @@ go
 USE szkolaJazdyHD;
 go
 
+
 CREATE TABLE Date 
 (
     ID INT PRIMARY KEY IDENTITY(0,1),
@@ -73,6 +74,7 @@ CREATE TABLE StudentCourse
 	ID_course_start_date INT NOT NULL,
     FOREIGN KEY (ID_Student) REFERENCES Student(ID),
     FOREIGN KEY (ID_Course) REFERENCES Course(ID),
+	FOREIGN KEY (ID_course_start_date) REFERENCES Date(ID),
     FOREIGN KEY (ID_BillIssueDate) REFERENCES Date(ID),
     FOREIGN KEY (ID_BillPaymentDate) REFERENCES Date(ID),
     FOREIGN KEY (ID_car) REFERENCES Car(ID),
