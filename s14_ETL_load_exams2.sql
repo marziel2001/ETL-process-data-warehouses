@@ -112,7 +112,54 @@ merge into szkolaJazdyHD.dbo.StudentCourse as tt
 				THEN
 					update set tt.theory_score = st.maxScore;
 
+
+if (object_id('vPracticeAttempts') is not null) Drop view vPracticeAttempts;
+go
+
+create view vPracticeAttempts
+as 
+Select
+	ID_StudentCourse = sc.ID
+	,max(PracticeAttempt) as maxAttempt
+from szkolaJazdyHD.dbo.examTemp 
+join szkolaJazdyHD.dbo.Student as st on examTemp.PESEL = st.PESEL 
+join szkolaJazdyHD.dbo.StudentCourse as sc on sc.ID_Student = st.ID 
+inner join szkolaJazdyHD.dbo.Date as d on CONVERT(varchar(10), d.date, 111) = CONVERT(varchar(10), examTemp.theoryDate, 111)
+group by sc.ID
+go
+
+-- updating studentCourse table to have practice attempts number
+merge into szkolaJazdyHD.dbo.StudentCourse as tt
+	using vPracticeAttempts as st
+		ON 
+		st.ID_StudentCourse = tt.ID
+			WHEN MATCHED 
+				THEN
+					update set tt.practice_attempts_no = st.maxAttempt;
+
 select * from szkolaJazdyHD.dbo.TheoryAttempt
 select * from szkolaJazdyHD.dbo.PracticeAttempt
+
+
+IF (OBJECT_ID('drivingHoursMeasures') IS NOT NULL) DROP VIEW drivingHoursMeasures
+GO
+IF (OBJECT_ID('vCar') IS NOT NULL) DROP VIEW vCar
+GO
+IF (OBJECT_ID('vCarAges') IS NOT NULL) DROP VIEW vCarAges
+GO
+IF (OBJECT_ID('vPractice') IS NOT NULL) DROP VIEW vPractice
+GO
+IF (OBJECT_ID('vPracticeAttempts') IS NOT NULL) DROP VIEW vPracticeAttempts
+GO
+IF (OBJECT_ID('vStudentCourse') IS NOT NULL) DROP VIEW vStudentCourse
+GO
+IF (OBJECT_ID('vStudents') IS NOT NULL) DROP VIEW vStudents
+GO
+IF (OBJECT_ID('vStudentsAges') IS NOT NULL) DROP VIEW vStudentsAges
+GO
+IF (OBJECT_ID('vTheory') IS NOT NULL) DROP VIEW vTheory
+GO
+IF (OBJECT_ID('vTheoryScores') IS NOT NULL) DROP VIEW vTheoryScores
+GO
 
 use master

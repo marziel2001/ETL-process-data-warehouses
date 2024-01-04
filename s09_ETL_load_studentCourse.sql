@@ -62,9 +62,6 @@ join szkolaJazdyBD.dbo.LectureAttendanceList as la on la.FK_StudentCourse = bd_s
 group by s.ID, c.ID, id.ID, pd.ID, car.ID, bd_sc.FK_Bill, BasePrice, noExtraDrivingHours, ID_StartDate
 go
 
-select * from szkolaJazdyBD.dbo.Student order by PESEL
-select * from szkolaJazdyHD.dbo.Student order by PESEL
-select * from vStudentCourse order by ID_Course
 
 merge into szkolaJazdyHD.dbo.StudentCourse as tt
 	using vStudentCourse as st
