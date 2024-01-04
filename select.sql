@@ -1,14 +1,14 @@
---use szkolaJazdyBD
---Select * from Student;
---Select * from Employee;
---Select * from Bill;
---Select * from Course;
---Select * from StudentCourse;
---Select * from Lecture;
---select * from LectureAttendanceList;
---Select * from Car;
---Select * from DrivingLesson;
---use master
+use szkolaJazdyBD
+Select * from Student;
+Select * from Employee;
+Select * from Bill;
+Select * from Course;
+Select * from StudentCourse;
+Select * from Lecture;
+select * from LectureAttendanceList;
+Select * from Car;
+Select * from DrivingLesson;
+use master
 
 
 use szkolaJazdyHD
