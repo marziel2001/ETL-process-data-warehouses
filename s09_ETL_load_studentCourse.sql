@@ -25,7 +25,15 @@ Select
 	, ID_Bill = bd_sc.FK_Bill
 	, bd_c.BasePrice
 	, noExtraDrivingHours = m.NoExtraDrivingHours
-	, theoryScore = 0--max(ex.TheoryScore) 
+	, theoryScore = 0
+	, prace_attempts_no = 0
+	, presence = CASE
+					WHEN cast(sum(la.Present) as float) / 5.0 between 0 and 0.2 then '0-20%'
+					WHEN cast(sum(la.Present) as float) / 5.0 between 0.2 and 0.5 then '20-50%'
+					WHEN cast(sum(la.Present) as float) / 5.0 between 0.5 and 0.8 then '50-80%'
+					WHEN cast(sum(la.Present) as float)  / 5.0 > 0.8 then '80-100%'
+               END
+	, ID_course_start_date = c.ID_StartDate
 	-- student po kluczu biznesowym
 from szkolaJazdyBD.dbo.StudentCourse as bd_sc 
 join szkolaJazdyBD.dbo.Student as bd_s on bd_sc.FK_Student = bd_s.ID 
@@ -49,7 +57,9 @@ inner join szkolaJazdyHD.dbo.Date as pd on CONVERT(varchar(10), pd.date, 111)
 -- samochud
 join szkolaJazdyHD.dbo.Car as car on VIN = bd_sc.FK_Car
 
-group by s.ID, c.ID, id.ID, pd.ID, car.ID, bd_sc.FK_Bill, BasePrice, noExtraDrivingHours
+-- lecture attendance
+join szkolaJazdyBD.dbo.LectureAttendanceList as la on la.FK_StudentCourse = bd_sc.FK_Student
+group by s.ID, c.ID, id.ID, pd.ID, car.ID, bd_sc.FK_Bill, BasePrice, noExtraDrivingHours, ID_StartDate
 go
 
 select * from szkolaJazdyBD.dbo.Student order by PESEL
@@ -70,7 +80,10 @@ merge into szkolaJazdyHD.dbo.StudentCourse as tt
 				st.ID_Bill,
 				st.BasePrice,
 				st.noExtraDrivingHours,
-				st.theoryScore
+				st.theoryScore,
+				st.prace_attempts_no,
+				st.presence,
+				st.ID_course_start_date
 			);
 
 select * from szkolaJazdyHD.dbo.StudentCourse

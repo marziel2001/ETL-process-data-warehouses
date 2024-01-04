@@ -113,6 +113,34 @@ merge into szkolaJazdyHD.dbo.StudentCourse as tt
 					update set tt.theory_score = st.maxScore;
 
 select * from szkolaJazdyHD.dbo.TheoryAttempt
-select * from szkolaJazdyHD.dbo.PracticeAttempt
+
+
+
+
+
+
+
+if (object_id('vPracticeAttempts') is not null) Drop view vPracticeAttempts;
+go
+create view vPracticeAttempts
+as 
+Select
+	ID_StudentCourse = sc.ID
+	,max(PracticeAttempt) as maxAttempt
+from szkolaJazdyHD.dbo.examTemp 
+join szkolaJazdyHD.dbo.Student as st on examTemp.PESEL = st.PESEL 
+join szkolaJazdyHD.dbo.StudentCourse as sc on sc.ID_Student = st.ID 
+inner join szkolaJazdyHD.dbo.Date as d on CONVERT(varchar(10), d.date, 111) = CONVERT(varchar(10), examTemp.theoryDate, 111)
+group by sc.ID
+go
+
+-- updating studentCourse table to have practice attempts number
+merge into szkolaJazdyHD.dbo.StudentCourse as tt
+	using vPracticeAttempts as st
+		ON 
+		st.ID_StudentCourse = tt.ID
+			WHEN MATCHED 
+				THEN
+					update set tt.practice_attempts_no = st.maxAttempt;
 
 use master
