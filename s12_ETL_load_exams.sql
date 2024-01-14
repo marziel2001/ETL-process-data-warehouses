@@ -1,26 +1,6 @@
 use szkolaJazdyHD
 go
 
-if (OBJECT_ID('dbo.examTemp') is not null) drop table dbo.examTemp;
-create table dbo.examTemp(
-	PESEL nVARCHAR(11),
-	firstName nVARCHAR(50),
-	lastName nVARCHAR(50),
-	theoryAttempt int,
-	theoryDate datetime,
-	theoryResult varchar(4), 
-	theoryScore int,
-	practiceAttempt int,
-	practiceDate datetime,
-	practiceResult nvarchar(4) check (practiceResult in ('PASS','FAIL'))
-);
-go
-
-BULK INSERT dbo.examTemp
-FROM 'C:\Users\Marcel\Documents\SQL Server Management Studio\HD_ETL\CSV\t1\ExamResult.csv'
-WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', DATAFILETYPE='widechar', CHECK_CONSTRAINTS);
-go
-
 if (object_id('vPractice') is not null) Drop view vPractice;
 go
 
@@ -112,16 +92,10 @@ merge into szkolaJazdyHD.dbo.StudentCourse as tt
 				THEN
 					update set tt.theory_score = st.maxScore;
 
-select * from szkolaJazdyHD.dbo.TheoryAttempt
-
-
-
-
-
-
 
 if (object_id('vPracticeAttempts') is not null) Drop view vPracticeAttempts;
 go
+
 create view vPracticeAttempts
 as 
 Select
@@ -142,5 +116,27 @@ merge into szkolaJazdyHD.dbo.StudentCourse as tt
 			WHEN MATCHED 
 				THEN
 					update set tt.practice_attempts_no = st.maxAttempt;
+
+
+IF (OBJECT_ID('drivingHoursMeasures') IS NOT NULL) DROP VIEW drivingHoursMeasures
+GO
+IF (OBJECT_ID('vCar') IS NOT NULL) DROP VIEW vCar
+GO
+IF (OBJECT_ID('vCarAges') IS NOT NULL) DROP VIEW vCarAges
+GO
+IF (OBJECT_ID('vPractice') IS NOT NULL) DROP VIEW vPractice
+GO
+IF (OBJECT_ID('vPracticeAttempts') IS NOT NULL) DROP VIEW vPracticeAttempts
+GO
+IF (OBJECT_ID('vStudentCourse') IS NOT NULL) DROP VIEW vStudentCourse
+GO
+IF (OBJECT_ID('vStudents') IS NOT NULL) DROP VIEW vStudents
+GO
+IF (OBJECT_ID('vStudentsAges') IS NOT NULL) DROP VIEW vStudentsAges
+GO
+IF (OBJECT_ID('vTheory') IS NOT NULL) DROP VIEW vTheory
+GO
+IF (OBJECT_ID('vTheoryScores') IS NOT NULL) DROP VIEW vTheoryScores
+GO
 
 use master

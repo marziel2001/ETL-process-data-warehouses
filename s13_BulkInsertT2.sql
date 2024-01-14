@@ -45,19 +45,27 @@ BULK INSERT DrivingLesson
 	WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', DATAFILETYPE='widechar');
 	Select * from DrivingLesson;
 
---CREATE DATABASE szkolaJazdy_Snapshot_T1 
---ON
---(
---	NAME = szkolaJazdyBD,
---	FILENAME = 'C:\snapshotyHurtownie\DL_snapshot_t1.ss'
---)
---AS SNAPSHOT OF szkolaJazdyBD
---GO
+use szkolaJazdyHD
+go
 
---UPDATE Student
---SET LastName = 'Kowalski'
---WHERE PESEL = '25042139260'
+if (OBJECT_ID('dbo.examTemp') is not null) drop table dbo.examTemp;
+create table dbo.examTemp(
+	PESEL nVARCHAR(11),
+	firstName nVARCHAR(50),
+	lastName nVARCHAR(50),
+	theoryAttempt int,
+	theoryDate datetime,
+	theoryResult varchar(4), 
+	theoryScore int,
+	practiceAttempt int,
+	practiceDate datetime,
+	practiceResult nvarchar(4) check (practiceResult in ('PASS','FAIL'))
+);
+go
 
---Select * from Student where PESEL = '25042139260'
+BULK INSERT dbo.examTemp
+FROM 'C:\Users\Marcel\Documents\SQL Server Management Studio\HD_ETL\CSV\t2\new_ExamResult.csv'
+WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', DATAFILETYPE='widechar', CHECK_CONSTRAINTS);
+go
 
 use master
